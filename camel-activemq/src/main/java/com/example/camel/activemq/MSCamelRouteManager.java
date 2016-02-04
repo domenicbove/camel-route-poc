@@ -16,6 +16,14 @@ public class MSCamelRouteManager {
 	private String toURL;
 	
 	private BasicDataSource db;
+	
+	public BasicDataSource getDb() {
+		return db;
+	}
+	
+	public void setDb(BasicDataSource db) {
+		this.db = db;
+	}
 
 	public List<String> getDirectories() {
 		return directories;

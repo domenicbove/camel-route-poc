@@ -17,6 +17,7 @@
         <feature>spring</feature>
         <feature>spring-dm</feature>
  -->
+ 		<!-- For adding the datasource jars to camel server -->
  		<bundle>mvn:commons-dbcp/commons-dbcp/1.4</bundle>
     </feature>
     
