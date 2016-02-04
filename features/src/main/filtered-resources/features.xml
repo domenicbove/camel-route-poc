@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features>
+    
+    <!-- LOAD THIS FIRST --> 
+    <feature name="ms-commons">   
+    <!-- 
+        <feature>camel-core</feature>
+        <feature>camel-jms</feature>
+        <feature>camel-spring</feature>
+        <feature>activemq-client</feature>
+        <feature>activemq-camel</feature>
+        <feature>activemq-pool</feature>
+        <feature>activemq-broker</feature>
+        <feature>activemq-spring</feature>
+        <feature>activemq-kahadb-store</feature>
+        <feature>xbean-spring</feature>
+        <feature>spring</feature>
+        <feature>spring-dm</feature>
+ -->
+ 		<bundle>mvn:commons-dbcp/commons-dbcp/1.4</bundle>
+    </feature>
+    
+    <feature name="ms">  
+    	<feature>ms-commons</feature> 
+    	<bundle>mvn:${project.groupId}/camel-activemq/${project.version}</bundle>
+    </feature>   
+        
+</features>
