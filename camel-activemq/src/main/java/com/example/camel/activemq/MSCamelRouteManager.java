@@ -1,5 +1,9 @@
 package com.example.camel.activemq;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +53,7 @@ public class MSCamelRouteManager {
 		this.camelContext = camelContext;
 	}
 
-	public List<String> addDetectionRoutes() {
+	public List<String> addDetectionRoutes() throws SQLException {
 
 		//		List<String> list = new ArrayList<String>();
 		//		for (int i = 0; i < 25; i++) {
@@ -64,7 +68,15 @@ public class MSCamelRouteManager {
 		final String METHOD_NAME = "addDetectionRoutes";
 		LOGGER.info(CLASS_NAME + "." + METHOD_NAME + " - " + "ENTER");
 		
-		LOGGER.info(CLASS_NAME + ".DOMDOMDOM" + METHOD_NAME + db.getUrl());
+		//Sample code for using the datasource
+		Connection conn = db.getConnection();
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM dbtable");
+		while (rs.next()) {
+			LOGGER.info("Column 1 returned "+rs.getString(1));
+		}
+		rs.close();
+		st.close();
 		
 		List<String> dirList = this.getDirectories();
 		String toUrl = this.getToURL();
