@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MSCamelRouteManager {
+	
 	private static final String CLASS_NAME = MSCamelRouteManager.class.getName();
 	private static final Logger LOGGER = LoggerFactory.getLogger(CLASS_NAME);
+	
 	CamelContext camelContext;
 	private List<String> directories;
 	private String toURL;
@@ -54,16 +56,6 @@ public class MSCamelRouteManager {
 	}
 
 	public List<String> addDetectionRoutes() throws SQLException {
-
-		//		List<String> list = new ArrayList<String>();
-		//		for (int i = 0; i < 25; i++) {
-		//			list.add(String.valueOf(i));
-		//		}
-		//		this.setDirectories(list);
-		/*
-		* instead of doing above, can grab datasource bean and get map from it.
-		* Might need to list DS as a property.
-		*/
 		
 		final String METHOD_NAME = "addDetectionRoutes";
 		LOGGER.info(CLASS_NAME + "." + METHOD_NAME + " - " + "ENTER");
@@ -73,7 +65,13 @@ public class MSCamelRouteManager {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM dbtable");
 		while (rs.next()) {
-			LOGGER.info("Column 1 returned "+rs.getString(1));
+			LOGGER.info(rs.getString(1) + ":" + rs.getString(2));
+			MSRouteBuilder route = new MSRouteBuilder(rs.getString(2), rs.getString(3));
+			try {
+				camelContext.addRoutes(route);
+			} catch (Exception e) {
+				LOGGER.error(CLASS_NAME + "." + METHOD_NAME + " - " + e.getMessage(), e);
+			}
 		}
 		rs.close();
 		st.close();
@@ -82,7 +80,7 @@ public class MSCamelRouteManager {
 		String toUrl = this.getToURL();
 		List<String> listRD = new ArrayList<String>();
 
-		for(int i = 0; i < dirList.size(); i++) {
+/*		for(int i = 0; i < dirList.size(); i++) {
 			MSRouteBuilder route = new MSRouteBuilder(dirList.get(i), toUrl, true);
 			try {
 				camelContext.addRoutes(route);
@@ -95,7 +93,7 @@ public class MSCamelRouteManager {
 
 		LOGGER.info(CLASS_NAME + "." + METHOD_NAME + " - routes created: " + listRD.toArray(new String[0]));
 		LOGGER.info(CLASS_NAME + "." + METHOD_NAME + " - " + "EXIT");
-
+*/
 		return listRD;
 	}
 }

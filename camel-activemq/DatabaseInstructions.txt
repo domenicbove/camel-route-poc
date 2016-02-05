@@ -1,0 +1,36 @@
+FUSE STARTER KIT BASIC INSTRUCTIONS
+
+1. Set up DB
+Download and install postgresql database. The one used to create this starter kit was version 9.3.3.0 (21).
+Download and install pgadmin. The one used to create this starter kit was pgAdmin3 version 1.18.1.
+
+Start postgresql.
+Open pgadmin.
+Whichever user installed postgresql, use that user to set up a postgres server.
+
+name: whatever you want.
+host:localhost
+port:5432
+Service: leave blank
+maintenanceDB:postgres
+username: the user that installed postgresql
+password: create a password and store it, probably "postgres"
+Group: Servers
+
+Create a Login Role. One should be the user used to create the server connection. If the user to create the server connection was not "postgres", create that user. Right click on "Login Roles" and select "New Login Role...".
+Under "Properties" tab "Role name" field, put "postgres". Under "Definition" tab "Password" fields, put the password. Use "postgres" to keep things simple. Click "OK".
+
+You should see one or two databases under your server definition, one named the user used to create the server connection, one named "postgres". Click on the "postgres" db. Click on the "SQL" button in the menu to execute arbitrary SQL queries. A new editor should pop up. Click on "Open". 
+
+create table dbtable (id integer primary key, startUri varchar(40), endUri varchar(40));
+insert into dbtable values (0, 'file:src/data/a', 'activemq:personnel.records');
+insert into dbtable values (1, 'file:src/data/b', 'activemq:personnel.inf');
+insert into dbtable values (2, 'activemq:personnel.records', 'file:target/messages/uk');
+insert into dbtable values (3, 'activemq:personnel.records', 'file:target/messages/others');
+DROP USER postgres;
+CREATE USER postgres LOGIN PASSWORD 'postgres' SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;
+
+
+Press the "f5" key to execute the query. The query creates the table and verifies that user postgres has permissions to access the table as defined in the datasource located in database-setup.xml of the fsk-esb module.
+
+Go back to the database browser. Select the "postgres" db and click on the "refresh" button from the menu (or f5). Click on postgres-schemas-public-Tables. You should have successfully created table "dbtable". Right click on "dbtable" and select ViewData>View All Rows to see a visual representation of the table you created.
