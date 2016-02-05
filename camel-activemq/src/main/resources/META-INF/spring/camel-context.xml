@@ -55,8 +55,9 @@ routing on the messages using XPath.
 
 <!-- This shows how to add a route to the CamelContext declaratively when there is no default constructor. -->
 <bean id="mSRouteBuilder" class="com.example.camel.activemq.MSRouteBuilder">
-  <constructor-arg index="0" value="src/data/1"/>
+  <constructor-arg index="0" value="file:src/data/1"/>
   <constructor-arg index="1" value="activemq:personnel.records"/>
+  <constructor-arg index="2" value="true"/>
 </bean>
 
 <!-- This shows how to actually instantiate the routes using a list that can be obtained from anywhere.
@@ -84,19 +85,18 @@ A Collection (List) will need to be constructed from the query done on the db. -
 
 <!-- This bean shows how to declare a Collection using Spring. -->
 <util:list id="directoryList" list-class="java.util.ArrayList" value-type="java.lang.String">
-  <value>src/data/a</value>
-  <value>src/data/b</value>
-  <value>src/data/c</value>
-  <value>src/data/d</value>
-  <value>src/data/e</value>
-  <value>src/data/f</value>
-  <value>src/data/g</value>
-  <value>src/data/h</value>
-  <value>src/data/i</value>
-  <value>src/data/j</value>
-  <value>src/data/k</value>
-  <value>src/data/l</value>
-  <value>src/data/m</value>
+  <value>file:src/data/a</value>
+  <value>file:src/data/b</value>
+  <value>file:src/data/c</value>
+  <value>file:src/data/d</value>
+  <value>file:src/data/e</value>
+  <value>file:src/data/f</value>
+  <value>file:src/data/g</value>
+  <value>file:src/data/h</value>
+  <value>file:src/data/i</value>
+  <value>file:src/data/j</value>
+  <value>file:src/data/k</value>
+  <value>file:src/data/l</value>
 </util:list>
 
 </beans>

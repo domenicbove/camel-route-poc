@@ -4,20 +4,27 @@ import org.apache.camel.model.RouteDefinition;
 
 public class MSRouteBuilder extends org.apache.camel.builder.RouteBuilder {
 
-	private String fromDirectory;
-	private String toQueue;
+	private String fromUri;
+	private String toUri;
 
 	private RouteDefinition routeDefinition;
 
-	public MSRouteBuilder(String fromDirectory, String toQueue) {
-		this.fromDirectory = fromDirectory;
-		this.toQueue = toQueue;
+	public MSRouteBuilder(String fromUri, String toUri) {
+		this(fromUri, toUri, false);
+	}
+	
+	public MSRouteBuilder(String fromUri, String toUri, Boolean noop) {
+		if(noop) {
+			this.fromUri = fromUri + "?noop=true";
+		} else {
+			this.fromUri = fromUri;
+		}
+		this.toUri = toUri;
 	}
 
 	@Override
 	public void configure() throws Exception {
-		routeDefinition = from("file:" + fromDirectory + "?noop=true")
-		.to(toQueue);
+		routeDefinition = from(fromUri).to(toUri);
 	}
 
 	public RouteDefinition getRouteDefinition() {
@@ -25,18 +32,18 @@ public class MSRouteBuilder extends org.apache.camel.builder.RouteBuilder {
 	}
 
 	public String getFromDirectory() {
-		return fromDirectory;
+		return fromUri;
 	}
 
 	public void setFromDirectory(String fromDirectory) {
-		this.fromDirectory = fromDirectory;
+		this.fromUri = fromDirectory;
 	}
 
 	public String getToQueue() {
-		return toQueue;
+		return toUri;
 	}
 
 	public void setToQueue(String toQueue) {
-		this.toQueue = toQueue;
+		this.toUri = toQueue;
 	}
 }

@@ -83,7 +83,7 @@ public class MSCamelRouteManager {
 		List<String> listRD = new ArrayList<String>();
 
 		for(int i = 0; i < dirList.size(); i++) {
-			MSRouteBuilder route = new MSRouteBuilder(dirList.get(i), toUrl);
+			MSRouteBuilder route = new MSRouteBuilder(dirList.get(i), toUrl, true);
 			try {
 				camelContext.addRoutes(route);
 			}
