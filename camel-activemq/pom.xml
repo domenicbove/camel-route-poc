@@ -156,6 +156,7 @@
 							org.apache.activemq.camel.component,
 							org.apache.camel.component.jms,
 							org.apache.commons.dbcp,
+							org.postgresql,
 							*
 						</Import-Package>
 						<Export-Package>

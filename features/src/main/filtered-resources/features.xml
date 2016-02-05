@@ -19,6 +19,9 @@
  -->
  		<!-- For adding the datasource jars to camel server -->
  		<bundle>mvn:commons-dbcp/commons-dbcp/1.4</bundle>
+ 		
+ 		<bundle>wrap:mvn:org.postgresql/postgresql/9.3-1101-jdbc4</bundle>
+ 		
     </feature>
     
     <feature name="ms">  
